@@ -1,4 +1,4 @@
-package com.example.crystap;
+package xyz.luan.games.crystap;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

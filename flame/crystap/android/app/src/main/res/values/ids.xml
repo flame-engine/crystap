@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+    <!-- app_id -->
+    <string name="app_id" translatable="false">309817578324</string>
+    <!-- package_name -->
+    <string name="package_name" translatable="false">xyz.luan.games.crystap</string>
+    <!-- achievement Tap Once -->
+    <string name="achievement_tap_once" translatable="false">CgkI1KbElIIJEAIQAg</string>
+</resources>

@@ -1,0 +1,20 @@
+name: crystap
+description: Tap the Crystal!
+
+version: 1.0.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flame:
+    path: ../../../flame
+  google_sign_in:
+    path: /home/luan/projects/flutter/flutter_plugins/plugins/packages/google_sign_in
+  firebase_auth: ^0.5.18
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: false
