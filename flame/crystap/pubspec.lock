@@ -39,9 +39,9 @@ packages:
   box2d_flame:
     dependency: transitive
     description:
-      path: "../../../flutter/box2d.dart"
-      relative: true
-    source: path
+      name: box2d_flame
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.4.2"
   charcode:
     dependency: transitive
@@ -81,10 +81,10 @@ packages:
   flame:
     dependency: "direct main"
     description:
-      path: "../../../flame"
-      relative: true
-    source: path
-    version: "0.9.1"
+      name: flame
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.2"
   flutter:
     dependency: "direct main"
     description: flutter
