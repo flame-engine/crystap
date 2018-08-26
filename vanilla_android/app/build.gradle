@@ -1,3 +1,4 @@
+//noinspection GradleDependency
 apply plugin: 'com.android.application'
 
 def keystorePropertiesFile = rootProject.file("keys/key.properties")
@@ -8,7 +9,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "xyz.luan.games.crystap"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -35,6 +36,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.7
+        sourceCompatibility 1.7
+    }
 }
 
 dependencies {
@@ -46,9 +51,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation 'com.google.firebase:firebase-core:16.0.1'
-    implementation 'com.google.firebase:firebase-auth:16.0.2'
-    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.3'
+    implementation 'com.google.firebase:firebase-auth:16.0.3'
+    implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.google.android.gms:play-services-games:15.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -8,9 +8,8 @@ dependencies:
     sdk: flutter
   flame:
     path: ../../../flame
-  google_sign_in:
-    path: /home/luan/projects/flutter/flutter_plugins/plugins/packages/google_sign_in
-  firebase_auth: ^0.5.18
+  play_games:
+    path: ../../../play_games
 
 dev_dependencies:
   flutter_test:
@@ -18,3 +17,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: false
+
+  assets:
+   - assets/images/bag.png
+   - assets/images/crystal.png

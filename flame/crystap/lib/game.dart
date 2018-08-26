@@ -1,92 +1,91 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/position.dart';
+import 'package:flame/sprite.dart';
+
+import 'package:play_games/play_games.dart';
 
 import 'util.dart';
-
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'profile.dart';
 
 class MyGame extends BaseGame {
 
-  FirebaseAuth _auth;
-  GoogleSignIn _googleSignIn;
+  Sprite bag = new Sprite('bag.png');
 
-  FirebaseUser user;
+  Profile profile;
+
+  bool menu = false;
   bool loading = true;
   String error;
 
+  int crystals = 0; // TODO firebase!
+
+  Rect get _bagRect => new Rect.fromLTWH(size.width - 16.0 - 32.0, 16.0, 32.0, 32.0);
+
   MyGame() {
-    _googleSignIn = new GoogleSignIn.games();
-    _auth = FirebaseAuth.instance;
-    // signInSilently();
-    loading = false;
-  }
-
-  signInSilently() async {
-    GoogleSignInAccount googleUser = await _googleSignIn.signInSilently();
-    if (googleUser != null) {
-      await handleSignIn(googleUser);
-    }
-    print('ltrue');
-    loading = false;
-    print('lfalse');
-  }
-
-  handleSignIn(GoogleSignInAccount googleUser) async {
-    print('h1');
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    print('h2');
-    user = await _auth.signInWithGoogle(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    print('h3');
-    print(user);
-    print('h4');
+    singin();
   }
 
   @override
   void render(Canvas c) {
     c.drawRect(new Rect.fromLTWH(0.0, 0.0, size.width, size.height), pBlack);
-    if (error != null) {
-      final p = Flame.util.text(error, fontFamily: 'Pixel', fontSize: 8.0, color: white);
-      p.paint(c, Offset((size.width - p.width)/2, (size.height - p.height)/2));
-    } else if (loading) {
+    if (loading) {
       final p = Flame.util.text('LOADING...', fontFamily: 'Pixel', fontSize: 36.0, color: white);
       p.paint(c, Offset((size.width - p.width)/2, (size.height - p.height)/2));
-    } else if (user == null) {
-      final p = Flame.util.text('TAP TO SIGN IN', fontFamily: 'Pixel', fontSize: 36.0, color: white);
+    } else if (profile == null) {
+      final p = Flame.util.text(error, fontFamily: 'Pixel', fontSize: 8.0, color: white);
       p.paint(c, Offset((size.width - p.width)/2, (size.height - p.height)/2));
+
+      final p2 = Flame.util.text('TAP TO SIGN IN AGAIN', fontFamily: 'Pixel', fontSize: 36.0, color: white);
+      p2.paint(c, Offset((size.width - p2.width)/2, (size.height - p2.height)/2 + p.height + 16.0));
     } else {
-      print('user not null');
       super.render(c);
-      final p = Flame.util.text(user.email, fontFamily: 'Pixel', fontSize: 24.0, color: white);
-      p.paint(c, Offset(size.width - p.width - 16.0, size.height - p.height - 16.0));
+
+      final p = Flame.util.text(crystals.toString(), fontFamily: 'Pixel', fontSize: 48.0, color: white);
+      p.paint(c, Offset((size.width - p.width)/2, (size.height - p.height)/2));
+
+      profile.render(c, Offset(16.0, 16.0));
+      bag.renderRect(c, _bagRect);
+    }
+  }
+
+  void singin() async {
+    try {
+      SigninResult result = await PlayGames.signIn();
+      if (result.success) {
+        await PlayGames.setPopupOptions();
+        profile = new Profile(result.account);
+      } else {
+        error = result.message;
+      }
+      loading = false;
+    } catch (ex) {
+      error = ex.toString();
     }
   }
 
   void tapDown(Position p) async {
-    if (loading || error != null) {
+    if (loading || menu || error != null) {
       return;
     }
-    if (user == null) {
-      try {
-        print('s1');
-        loading = true;
-        print('s2');
-        GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-        print('s3');
-        await handleSignIn(googleUser);
-        print('s4');
-        loading = false;
-      } catch (ex) {
-        error = ex.toString();
-      }
+    if (profile == null) {
+      singin();
     } else {
-      // TODO tap crystal
+      if (_bagRect.contains(p.toOffset())) {
+        menu = true;
+        PlayGames.showAchievements().then((_) => menu = false);
+      } else {
+        menu = true;
+        bool a1 = await PlayGames.unlockAchievementByName('achievement_tap_once');
+        bool a2 = await PlayGames.incrementAchievementByName('achievement_tap_10_times');
+        bool a3 = await PlayGames.incrementAchievementByName('achievement_tap_100_times');
+        print([a1, a2, a3]);
+        crystals++;
+        menu = false;
+      }
     }
   }
 }

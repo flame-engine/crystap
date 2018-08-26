@@ -10,4 +10,8 @@ Save this file as res/values/games-ids.xml in your project.
     <string name="package_name" translatable="false">xyz.luan.games.crystap</string>
     <!-- achievement Tap Once -->
     <string name="achievement_tap_once" translatable="false">CgkI1KbElIIJEAIQAg</string>
+    <!-- achievement Tap 10 Times -->
+    <string name="achievement_tap_10_times" translatable="false">CgkI1KbElIIJEAIQAw</string>
+    <!-- achievement Tap 100 Times! -->
+    <string name="achievement_tap_100_times" translatable="false">CgkI1KbElIIJEAIQBA</string>
 </resources>

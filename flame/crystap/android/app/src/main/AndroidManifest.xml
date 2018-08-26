@@ -6,19 +6,20 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="crystap"
+        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
 
         <activity
             android:name=".MainActivity"
+            android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
-
-            <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
-            <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
 
             <meta-data
                 android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
