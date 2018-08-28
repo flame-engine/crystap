@@ -6,7 +6,8 @@ version: 1.0.0
 dependencies:
   flutter:
     sdk: flutter
-  flame: 0.9.2
+  flame:
+    path: ../../../flame
   play_games:
     path: ../../../play_games
 
@@ -20,3 +21,8 @@ flutter:
   assets:
    - assets/images/bag.png
    - assets/images/crystal.png
+
+  fonts:
+    - family: Stacked
+      fonts:
+        - asset: assets/fonts/Stacked.ttf

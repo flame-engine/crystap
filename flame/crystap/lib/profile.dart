@@ -1,11 +1,11 @@
 import 'dart:ui';
 
-import 'package:flame/flame.dart';
 import 'package:play_games/play_games.dart';
 
 import 'util.dart';
 
 class Profile {
+
   Image userImage;
   Account user;
 
@@ -14,16 +14,16 @@ class Profile {
   }
 
   void render(Canvas c, Offset o) {
-    final p = Flame.util.text(user.email, fontFamily: 'Pixel', fontSize: 24.0, color: white);
+    final p = text(user.displayName, fontSize: 24.0);
 
-    Rect bg = new Rect.fromLTWH(o.dx, o.dy, 38.0 + p.width, 32.0);
-    c.drawRect(bg, new Paint()..color = const Color(0xFFFF00FF));
+    Rect bg = new Rect.fromLTWH(o.dx, o.dy, ICON_SIZE + 2 * MARGIN + p.width, ICON_SIZE);
+    c.drawRect(bg, pUiBg);
 
-    p.paint(c, Offset(o.dx + 36.0, o.dy + (32.0 - p.height) / 2));
+    p.paint(c, Offset(o.dx + ICON_SIZE + MARGIN, o.dy + (ICON_SIZE - p.height) / 2));
 
     if (userImage != null) {
       Rect bounds = new Rect.fromLTWH(0.0, 0.0, userImage.width.toDouble(), userImage.height.toDouble());
-      Rect dst = new Rect.fromLTWH(o.dx, o.dy, 32.0, 32.0);
+      Rect dst = new Rect.fromLTWH(o.dx, o.dy, ICON_SIZE, ICON_SIZE);
       c.drawImageRect(userImage, bounds, dst, pWhite);
     }
   }
