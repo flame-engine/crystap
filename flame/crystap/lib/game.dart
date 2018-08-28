@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:crystap/crystal.dart';
 import 'package:flame/game.dart';
 import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
@@ -12,7 +13,6 @@ import 'profile.dart';
 class MyGame extends BaseGame {
 
   Sprite bag = Sprite('bag.png');
-  Sprite crystal = Sprite('crystal.png');
 
   Profile profile;
 
@@ -20,13 +20,13 @@ class MyGame extends BaseGame {
   bool loading = true;
   String error;
 
-  int crystals = 0; // TODO firebase!
+  Crystal crystal;
 
-  Position _crystalSize = new Position(128.0, 128.0);
   Rect get _bagRect => Rect.fromLTWH(size.width - 16.0 - ICON_SIZE, 16.0, ICON_SIZE, ICON_SIZE);
 
   MyGame() {
-    singin();
+    add(crystal = new Crystal());
+    singIn();
   }
 
   @override
@@ -44,11 +44,6 @@ class MyGame extends BaseGame {
     } else {
       super.render(c);
 
-      crystal.renderCentered(c, new Position.fromSize(size).times(0.5), _crystalSize);
-
-      final p = text(crystals.toString(), fontSize: 48.0);
-      p.paint(c, Offset((size.width - p.width)/2, (size.height + _crystalSize.y)/2 + MARGIN));
-
       profile.render(c, Offset(16.0, 16.0));
 
       c.drawRect(_bagRect, pUiBg);
@@ -56,7 +51,7 @@ class MyGame extends BaseGame {
     }
   }
 
-  void singin() async {
+  void singIn() async {
     SigninResult result = await PlayGames.signIn();
     if (result.success) {
       await PlayGames.setPopupOptions();
@@ -72,19 +67,13 @@ class MyGame extends BaseGame {
       return;
     }
     if (profile == null) {
-      singin();
+      singIn();
     } else {
       if (_bagRect.contains(p.toOffset())) {
         menu = true;
         PlayGames.showAchievements().then((_) => menu = false);
       } else {
-        menu = true;
-        bool a1 = await PlayGames.unlockAchievementByName('achievement_tap_once');
-        bool a2 = await PlayGames.incrementAchievementByName('achievement_tap_10_times');
-        bool a3 = await PlayGames.incrementAchievementByName('achievement_tap_100_times');
-        print([a1, a2, a3]);
-        crystals++;
-        menu = false;
+        crystal.up();
       }
     }
   }
