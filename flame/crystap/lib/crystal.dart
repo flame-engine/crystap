@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flame/components/component.dart';
 import 'package:flame/components/resizable.dart';
 import 'package:flame/position.dart';
+import 'package:flame/audio_pool.dart';
 import 'package:flame/sprite.dart';
 import 'package:play_games/play_games.dart';
 
@@ -13,7 +14,9 @@ class Crystal extends Component with Resizable {
 
   static Sprite sprite = Sprite('crystal.png');
   static Position _crystalSize = new Position(128.0, 128.0);
-  
+
+  static AudioPool sfx = new AudioPool('pickup.mp3', prefix: 'audio/', minPlayers: 5, maxPlayers: 5)..init();
+
   int amount;
 
   Crystal() {
@@ -24,8 +27,10 @@ class Crystal extends Component with Resizable {
     if (amount == null) {
       return;
     }
+
     amount++;
 
+    sfx.start(volume: 0.2);
     _achievements();
     _firebaseSync();
   }

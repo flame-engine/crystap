@@ -21,6 +21,7 @@ flutter:
   assets:
    - assets/images/bag.png
    - assets/images/crystal.png
+   - assets/audio/pickup.mp3
 
   fonts:
     - family: Stacked
