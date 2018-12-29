@@ -6,9 +6,9 @@ version: 1.1.0
 dependencies:
   flutter:
     sdk: flutter
-  flame:
-    path: ../../../flame
+  flame: 0.9.5
   play_games: 0.2.0
+  flutter_inapp_purchase: ^0.8.7
 
 dev_dependencies:
   flutter_test:
@@ -24,9 +24,11 @@ flutter:
   uses-material-design: false
 
   assets:
-   - assets/images/bag.png
-   - assets/images/crystal.png
-   - assets/audio/pickup.mp3
+    - assets/images/bag.png
+    - assets/images/check.png
+    - assets/images/coins.png
+    - assets/images/crystal.png
+    - assets/audio/pickup.mp3
 
   fonts:
     - family: Stacked

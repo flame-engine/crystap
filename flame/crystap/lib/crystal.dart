@@ -21,20 +21,11 @@ class Crystal extends Component with Resizable {
 
   Crystal(int startAmount) : amount = startAmount;
 
-  void up() {
-    if (amount == null) {
-      return;
-    }
-
-    amount++;
+  void tap(int dx) {
+    amount += dx;
 
     sfx.start(volume: 0.2);
     _achievements();
-    _firebaseSync();
-  }
-
-  void _firebaseSync() {
-    // TODO firebase sync
   }
 
   void _achievements() {
