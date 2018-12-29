@@ -19,9 +19,7 @@ class Crystal extends Component with Resizable {
 
   int amount;
 
-  Crystal() {
-    amount = 0; // TODO fetch from firebase
-  }
+  Crystal(int startAmount) : amount = startAmount;
 
   void up() {
     if (amount == null) {

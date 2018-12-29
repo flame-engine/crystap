@@ -3,6 +3,7 @@
     package="xyz.luan.games.crystap">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.android.vending.BILLING"/>
 
     <application
         android:name="io.flutter.app.FlutterApplication"

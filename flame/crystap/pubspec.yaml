@@ -8,8 +8,7 @@ dependencies:
     sdk: flutter
   flame:
     path: ../../../flame
-  play_games:
-    path: ../../../play_games
+  play_games: 0.2.0
 
 dev_dependencies:
   flutter_test:
