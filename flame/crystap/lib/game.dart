@@ -17,7 +17,7 @@ class MyGame extends BaseGame {
   Sprite check = Sprite('check.png');
 
   Profile profile;
-  bool pro = true;
+  bool pro = false;
   IAPItem iap;
 
   bool menu = false;
@@ -105,11 +105,12 @@ class MyGame extends BaseGame {
       addLater(ToastComponent('Succesfully purchased the game!')..resize(size));
       pro = true;
       // one time add 100.000 crystals & save
-      crystal.amount += 100000;
+      crystal.tap(100000);
       await saveAmount(crystal.amount);
+      PlayGames.unlockAchievementById('achievement_be_pro');
     } catch (e) {
       print('Error $e');
-      addLater(ToastComponent('Unexpected error on buying the product.'));
+      addLater(ToastComponent('Unexpected error on buying the product.')..resize(size));
     }
   }
 

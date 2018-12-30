@@ -19,6 +19,8 @@ class Crystal extends Component with Resizable {
 
   int amount;
 
+  int _achieveCountCache = 0;
+
   Crystal(int startAmount) : amount = startAmount;
 
   void tap(int dx) {
@@ -29,12 +31,25 @@ class Crystal extends Component with Resizable {
   }
 
   void _achievements() {
-    if (amount == 1) {
+    if (_achieveCountCache == 0 && amount >= 1) {
       _runSingle(() => PlayGames.unlockAchievementByName('achievement_tap_once'));
-    } else if (amount == 10) {
+      _achieveCountCache = 1;
+    }
+    if (_achieveCountCache == 1 && amount >= 10) {
       _runSingle(() => PlayGames.unlockAchievementByName('achievement_tap_10_times'));
-    } else if (amount == 100) {
+      _achieveCountCache = 2;
+    }
+    if (_achieveCountCache == 2 && amount >= 100) {
       _runSingle(() => PlayGames.unlockAchievementByName('achievement_tap_100_times'));
+      _achieveCountCache = 3;
+    }
+    if (_achieveCountCache == 3 && amount >= 1000) {
+      _runSingle(() => PlayGames.incrementAchievementByName('achievement_tap_1000_times', 1000));
+      _achieveCountCache = 4;
+    }
+    if (_achieveCountCache == 4 && amount >= 10000) {
+      _runSingle(() => PlayGames.incrementAchievementByName('achievement_sir_tapalot', 10000));
+      _achieveCountCache = 5;
     }
   }
 
