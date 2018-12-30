@@ -1,7 +1,7 @@
 name: crystap
 description: Tap the Crystal!
 
-version: 1.1.0
+version: 1.6.0
 
 dependencies:
   flutter:
