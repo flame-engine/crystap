@@ -107,7 +107,7 @@ class MyGame extends BaseGame {
       // one time add 100.000 crystals & save
       crystal.tap(100000);
       await saveAmount(crystal.amount);
-      PlayGames.unlockAchievementById('achievement_be_pro');
+      PlayGames.unlockAchievementByName('achievement_be_pro');
     } catch (e) {
       print('Error $e');
       addLater(ToastComponent('Unexpected error on buying the product.')..resize(size));
