@@ -20,4 +20,6 @@ Save this file as res/values/games-ids.xml in your project.
     <string name="achievement_tap_1000_times" translatable="false">CgkI1KbElIIJEAIQCQ</string>
     <!-- achievement Sir Tap-A-Lot -->
     <string name="achievement_sir_tapalot" translatable="false">CgkI1KbElIIJEAIQCg</string>
+    <!-- leaderboard High Scores -->
+    <string name="leaderboard_high_scores" translatable="false">CgkI1KbElIIJEAIQCw</string>
 </resources>

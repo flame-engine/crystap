@@ -32,7 +32,9 @@ class MyGame extends BaseGame {
 
   Rect get _checkCoinRect => Rect.fromLTWH(size.width - (16.0 + ICON_SIZE / 2), 16.0 + ICON_SIZE / 2, ICON_SIZE / 2, ICON_SIZE / 2);
 
-  Rect get _syncRect => Rect.fromLTWH(32.0, size.height - 64.0 - 32.0, size.width - 64.0, 64.0);
+  Rect get _syncRect => Rect.fromLTWH(32.0, size.height - 64.0 - 32.0, (size.width - 64.0 - 32.0) / 2, 64.0);
+
+  Rect get _leaderboardRect => Rect.fromLTWH((size.width - 64.0 - 32.0) / 2 + 64.0, size.height - 64.0 - 32.0, (size.width - 64.0 - 32.0) / 2, 64.0);
 
   MyGame() {
     singIn();
@@ -68,8 +70,12 @@ class MyGame extends BaseGame {
       }
 
       c.drawRect(_syncRect, pUiBg);
-      final p = text('Save Progress');
-      p.paint(c, Offset((size.width - p.width) / 2, (_syncRect.top + (_syncRect.height - p.height) / 2)));
+      final p = text('Save Progress', fontSize: 24.0);
+      p.paint(c, Offset(_syncRect.left + (_syncRect.width - p.width) / 2, _syncRect.top + (_syncRect.height - p.height) / 2));
+
+      c.drawRect(_leaderboardRect, pUiBg);
+      final p2 = text('Leaderboard', fontSize: 24.0);
+      p2.paint(c, Offset(_leaderboardRect.left + (_leaderboardRect.width - p2.width) / 2, _leaderboardRect.top + (_leaderboardRect.height - p2.height) / 2));
     }
   }
 
@@ -135,6 +141,14 @@ class MyGame extends BaseGame {
           loading = false;
           addLater(ToastComponent(m ? 'Saved successfully' : 'Error')..resize(size));
         });
+      } else if (_leaderboardRect.contains(p.toOffset())) {
+        ScoreResults results = await PlayGames.loadPlayerCenteredScoresByName('leaderboard_high_scores', TimeSpan.TIME_SPAN_ALL_TIME, CollectionType.COLLECTION_PUBLIC, 10, forceReload: true);
+        print('------');
+        print(results.leaderboardDisplayName);
+        print(results.scores.length);
+        print(results.scores.first.rank);
+        print(results.scores.first.rawScore);
+        print('------');
       } else {
         crystal.tap(pro ? 2 : 1);
       }
@@ -152,6 +166,11 @@ class MyGame extends BaseGame {
   Future<bool> saveAmount(int amount) async {
     bool result = await PlayGames.saveSnapshot('crystap.main', amount.toString()); // save the current state to the snapshot
     await PlayGames.openSnapshot('crystap.main'); // reopen snapshot after save
+    SubmitScoreResults submitResult = await PlayGames.submitScoreByName('leaderboard_high_scores', amount);
+    print('----');
+    print(submitResult);
+    print(submitResult.scoreResultAllTime.formattedScore);
+    print('----');
     return result;
   }
 }
