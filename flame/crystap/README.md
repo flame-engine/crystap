@@ -1,8 +1,5 @@
 # crystap
 
-A new Flutter project.
+[![Powered by Flame](https://img.shields.io/badge/Powered%20by-%F0%9F%94%A5-orange.svg?style=for-the-badge)](https://flame-engine.org)
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+The Crystap game, developed using Flame.
